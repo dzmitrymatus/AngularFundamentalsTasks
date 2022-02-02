@@ -1,9 +1,31 @@
+<h1>Button component example:</h1> 
+<app-button buttonText="Example"></app-button>
+
+<h1>Header component example:</h1> 
 <app-header>
     <span style="margin-right: 20px;">Dzmitry</span>
     <app-button buttonText="Logout"></app-button>
 </app-header>
-<div>
+
+ <h1>Info component example:</h1>   
 <app-info title="Your list is empty" text="Please use the 'Add new course' button to add your first course">
     <app-button buttonText="Add new cource"></app-button>
 </app-info>
-</div> 
+
+<h1>Course card component example:</h1> 
+<app-course-card 
+    [course]="courses[0]">
+    <app-button buttonText="Show course"></app-button>
+</app-course-card>
+
+<h1>Course list component example:</h1>
+<app-course-list 
+    [courses]="courses"
+    [editable]="true" 
+    (onShow)="onShowId($event)"
+    (onEdit)="onShowId($event)"
+    (onRemove)="onShowId($event)">
+
+</app-course-list> 
+
+<h2>{{selectedCourseId}}</h2>

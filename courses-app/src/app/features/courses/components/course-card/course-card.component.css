@@ -1,0 +1,28 @@
+.course-card {
+    width: 80%;
+    height: auto;
+    padding: 5px;
+    margin-bottom: 10px;
+    
+    border-style: solid;
+    border-color: #3dc3ec;
+    border-radius: 5px;
+}
+
+.course-card-main {
+    display:inline-block;
+    width: 70%;
+}
+
+.course-card-info {
+    display:inline-block;
+    width: 30%;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: top;
+}
+
+.course-card-info-content {
+    text-align: center; 
+}

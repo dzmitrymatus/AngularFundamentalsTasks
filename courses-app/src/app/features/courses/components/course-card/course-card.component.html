@@ -1,0 +1,18 @@
+<div *ngIf="course" class="course-card">
+    <div class="course-card-main">
+        <h2>{{course.title}}</h2>
+        <p>{{course.description}}</p>
+    </div>
+    <div class="course-card-info">
+        <p><b>Authors:</b> {{course.authors|join:', '}}</p>
+        <p><b>Duration:</b> {{(course.duration * 60) * 1000|date:'hh:mm':'UTC'}} 
+            <span *ngIf="course.duration < 120"> hour</span>           
+            <span *ngIf="course.duration >= 120"> hours</span>   
+        </p>
+        <p><b>Created:</b> {{course.creationDate|date:'dd.MM.YYYY'}}</p>
+        <div class="course-card-info-content">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>
+
