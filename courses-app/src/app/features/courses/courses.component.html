@@ -27,5 +27,11 @@
     (onRemove)="onShowId($event)">
 
 </app-course-list> 
+<h2>Course list component clicked button cardId example:</h2>
+<h3>{{selectedCourseId}}</h3>
 
-<h2>{{selectedCourseId}}</h2>
+<h1>Confirm modal window example:</h1>
+<app-confirm-modal-window title="ExampleTitle" message="Example Message" #exampleModal></app-confirm-modal-window>
+<app-button buttonText="Show confirm modal" [confirmWindow]="exampleModal" (onClick)="onButtonClick()"></app-button>
+<h3>Dialog confirmed:</h3>
+<p>{{dialogConfirmed}}</p>

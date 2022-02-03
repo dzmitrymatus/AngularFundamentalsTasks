@@ -10,11 +10,16 @@ import { CourseCardModel } from './models/course-card.model';
 export class CoursesComponent implements OnInit {
   courses = new CoursesMockData().courses;
   selectedCourseId:number = 0;
+  dialogConfirmed:boolean = false;
 
   constructor() { }
 
   onShowId(id: number){
     this.selectedCourseId = id;
+  }
+
+  onButtonClick(){
+    this.dialogConfirmed = true;
   }
 
   ngOnInit(): void {

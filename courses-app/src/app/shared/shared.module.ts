@@ -14,6 +14,7 @@ const componentsArray: Array<any> = [
   Components.HeaderComponent,
   Components.InfoComponent,
   Components.SearchComponent,
+  Components.ConfirmModalWindowComponent,
   Pipes.JoinPipe
 ];
 

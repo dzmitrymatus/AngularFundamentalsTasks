@@ -8,11 +8,6 @@ import { CourseCardModel } from '../../models/course-card.model';
 })
 export class CourseCardComponent implements OnInit {
   @Input() course: CourseCardModel | undefined;
-  // @Input() title: string = "";
-  // @Input() description: string = "";
-  // @Input() creationDate?: Date;
-  // @Input() duration: number = 0;
-  // @Input() authors: Array<string> = [];
 
   constructor() { }
 
