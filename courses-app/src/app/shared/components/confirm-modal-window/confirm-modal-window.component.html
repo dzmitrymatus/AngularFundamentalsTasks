@@ -1,0 +1,15 @@
+<div *ngIf="visible===true" class="confirm-modal-window">
+    <div class="confirm-modal-window-content">
+        <div class="confirm-modal-window-header">
+            <h2>{{title}}</h2>
+            <app-button iconName="window-close" (click)="onClose.emit(false)"></app-button>
+        </div>
+        <div class="confirm-modal-window-body">
+            <p>{{message}}</p>
+        </div>
+        <div class="confirm-modal-window-footer">
+            <app-button [buttonText]="okButtonText" (click)="onClose.emit(true)"></app-button>
+            <app-button [buttonText]="cancelButtonText" (click)="onClose.emit(false)"></app-button>
+        </div>
+    </div>
+</div>
