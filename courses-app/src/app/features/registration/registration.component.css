@@ -1,0 +1,44 @@
+.app-registration {
+    border-style: solid;
+    border-color: #3dc3ec;
+    border-radius: 5px;
+}
+
+.component-container {
+    display: block;
+    width: 20%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+    padding-bottom: 10px;   
+}
+
+.input-container {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.input-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.input-container input {
+    width: 100%;
+}
+
+.input-container .validation-error-container,  .input-container .validation-error-container p {
+    color: red;
+    margin: 0px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+form.ng-submitted input.ng-invalid,  form input.ng-invalid.ng-touched {
+    border-style: solid;
+    border-color: red;
+    border-radius: 2px;
+}

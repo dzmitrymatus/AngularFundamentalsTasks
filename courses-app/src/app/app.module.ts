@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoursesModule } from './features/courses/courses.module';
 import { LoginModule } from './features/login/login.module';
+import { RegistrationModule } from './features/registration/registration.module';
 
 import { AppComponent } from './app.component';
 
@@ -12,7 +13,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     CoursesModule,
-    LoginModule
+    LoginModule,
+    RegistrationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
