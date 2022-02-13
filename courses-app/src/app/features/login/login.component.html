@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="app-login">
+    <div class="component-container">
+        <h1>Login</h1>
+        <div class="form-container">   
+            <form #formModel="ngForm">
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" ngModel #emailModel="ngModel" required emailValidator>
+                    <div class="validation-error-container" *ngIf="emailModel.errors && (formModel.submitted || emailModel.touched)">
+                        <p *ngIf="emailModel.errors['required']">Field is required</p>
+                        <p *ngIf="emailModel.errors['emailValidator']">Email is not correct</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" ngModel #passwordModel="ngModel" required>
+                    <div class="validation-error-container" *ngIf="passwordModel.errors && (formModel.submitted || passwordModel.touched)">
+                        <p>Field is required</p>
+                    </div>
+                </div>
+                <app-button type="submit" buttonText="Login"></app-button>
+            </form>
+            <p>If you don't have an account you can <a href="#">Registration</a></p>
+        </div>
+    </div>
+</div>
