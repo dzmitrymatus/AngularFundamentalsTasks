@@ -9,6 +9,7 @@ import { ConfirmModalWindowComponent } from '../confirm-modal-window/confirm-mod
 })
 export class ButtonComponent implements OnInit {
   @Input() buttonText: string = "";
+  @Input() buttonType: string = "button";
   @Input() iconName: IconName | undefined = undefined;
   @Input() iconPrefix: IconPrefix = 'fas';
   @Input() confirmWindow: ConfirmModalWindowComponent | undefined;
@@ -32,7 +33,10 @@ export class ButtonComponent implements OnInit {
             if(x === true) this.onClick.emit();
             this.confirmWindow?.hide();
           });
+      } else {
+        this.onClick.emit();
       }
+
    }
 
 }

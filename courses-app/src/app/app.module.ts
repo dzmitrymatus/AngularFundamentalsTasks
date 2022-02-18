@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoursesModule } from './features/courses/courses.module';
 import { LoginModule } from './features/login/login.module';
 import { RegistrationModule } from './features/registration/registration.module';
+import { CourseModule } from './features/course/course.module';
 
 import { AppComponent } from './app.component';
 
@@ -14,7 +15,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     CoursesModule,
     LoginModule,
-    RegistrationModule
+    RegistrationModule,
+    CourseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

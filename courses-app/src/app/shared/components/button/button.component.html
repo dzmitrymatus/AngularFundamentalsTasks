@@ -1,4 +1,4 @@
-<button  *ngIf="buttonText || iconLookup" (click)="onButtonClick()">
+<button  *ngIf="buttonText || iconLookup" (click)="onButtonClick()" type={{buttonType}}>
     {{buttonText}}
     <fa-icon *ngIf="iconLookup" [icon]="iconLookup"></fa-icon>
 </button>

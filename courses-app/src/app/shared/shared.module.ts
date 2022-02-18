@@ -12,6 +12,8 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { validateEmail } from './validators/index';
 export { validateEmail } 
+import { validateValueContainsLatinLettersAndNumbersOnly } from './validators/index';
+export { validateValueContainsLatinLettersAndNumbersOnly }
 
 const componentsArray: Array<any> = [
   Components.ButtonComponent,
@@ -20,7 +22,9 @@ const componentsArray: Array<any> = [
   Components.SearchComponent,
   Components.ConfirmModalWindowComponent,
   Pipes.JoinPipe,
-  Validators.EmailValidatorDirective
+  Pipes.DurationPipe,
+  Validators.EmailValidatorDirective,
+  Validators.LatinLettersAndNumbersValidatorDirective
 ];
 
 @NgModule({
