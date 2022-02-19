@@ -23,6 +23,7 @@ const componentsArray: Array<any> = [
   Components.ConfirmModalWindowComponent,
   Pipes.JoinPipe,
   Pipes.DurationPipe,
+  Pipes.CreationDatePipe,
   Validators.EmailValidatorDirective,
   Validators.LatinLettersAndNumbersValidatorDirective
 ];
