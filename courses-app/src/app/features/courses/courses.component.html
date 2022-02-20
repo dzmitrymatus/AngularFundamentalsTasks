@@ -38,3 +38,7 @@
 <app-button buttonText="Show confirm modal" [confirmWindow]="exampleModal" (onClick)="onButtonClick()"></app-button>
 <h3>Dialog confirmed:</h3>
 <p>{{dialogConfirmed}}</p>
+
+<h1>Input type toggler example</h1>
+<input appInputTypeToggler #toggler="inputTypeToggler" [type]='toggler.inputType'>
+<br>

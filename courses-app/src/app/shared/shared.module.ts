@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as Components from './components/index';
+import * as Directives from './directives/index';
 import * as Pipes from './pipes/index';
 import * as Validators from './validators/index';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,6 +22,7 @@ const componentsArray: Array<any> = [
   Components.InfoComponent,
   Components.SearchComponent,
   Components.ConfirmModalWindowComponent,
+  Directives.InputTypeTogglerDirective,
   Pipes.JoinPipe,
   Pipes.DurationPipe,
   Pipes.CreationDatePipe,
