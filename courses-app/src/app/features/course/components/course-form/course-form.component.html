@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="duration-container">
+            <!-- <div class="duration-container">
                 <h2>Duration</h2>
                     <div class="input-container">
                         <label for="duration">Duration</label>
@@ -54,6 +54,24 @@
                             <p *ngIf="duration.errors['required']">Duration is required</p>
                             <p *ngIf="duration.errors['min']">Duration should be not less than 0</p>
                         </div>
+                        <p>Duration: {{duration.value|duration}} hours</p>
+                    </div>
+            </div> -->
+            <div class="duration-container">
+                <h2>Duration</h2>
+                    <div class="input-container">
+                        <label for="duration">Duration</label>
+                        <input #durationElement type="text" id="duration" name="duration" formControlName="duration">
+
+                        <ng-template
+                            appControlError
+                            [element]="durationElement"
+                            controlName="duration"
+                            let-error>
+                            <div class="validation-error-container">
+                                <p>{{ error | async }}</p>
+                            </div>
+                        </ng-template>
                         <p>Duration: {{duration.value|duration}} hours</p>
                     </div>
             </div>

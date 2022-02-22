@@ -23,6 +23,7 @@ const componentsArray: Array<any> = [
   Components.SearchComponent,
   Components.ConfirmModalWindowComponent,
   Directives.InputTypeTogglerDirective,
+  Directives.ControlErrorDirective,
   Pipes.JoinPipe,
   Pipes.DurationPipe,
   Pipes.CreationDatePipe,
