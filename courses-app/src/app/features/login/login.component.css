@@ -27,7 +27,7 @@
 }
 
 .input-container input {
-    width: 100%;
+    width: 95%;
 }
 
 .input-container .validation-error-container,  .input-container .validation-error-container p {

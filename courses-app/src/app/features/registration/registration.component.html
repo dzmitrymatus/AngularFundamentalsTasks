@@ -21,14 +21,14 @@
                 </div>
                 <div class="input-container">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" formControlName="password">
+                    <input type="password" id="password" name="password" formControlName="password" appInputTypeToggler #toggler="inputTypeToggler" [type]='toggler.inputType'>
                     <div class="validation-error-container" *ngIf="password.errors && (regForm.submitted || password.touched)">
                         <p>Password is required</p>
                     </div>
                 </div>
                 <app-button type="submit" buttonText="Registration"></app-button>
             </form>
-            <p>If you have an account you can <a href="#">Login</a></p>
+            <p>If you have an account you can <a [routerLink]="['/login']">Login</a></p>
         </div>
     </div>
 </div>

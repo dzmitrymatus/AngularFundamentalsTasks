@@ -16,9 +16,10 @@ export class InputTypeTogglerDirective {
     this.iconComponent.instance.icon = {prefix: 'fas', iconName: this.getIconName()};  
     this.iconComponent.instance.render();
     this.iconComponent.location.nativeElement.addEventListener("click", () => this.onIconClick());
+    this.iconComponent.location.nativeElement.style.display = "inline-block";
+    this.iconComponent.location.nativeElement.style.width = "0%";
     this.iconComponent.location.nativeElement.style.position = "relative";
     this.iconComponent.location.nativeElement.style.left = '-22px';
-    this.iconComponent.location.nativeElement.style.top = '1px';
    }
 
   getIconName() : IconName {

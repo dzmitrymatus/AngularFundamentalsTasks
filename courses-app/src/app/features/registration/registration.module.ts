@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from '../registration/registration.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RegistrationRoutingModule } from './registration-routing.module';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RegistrationRoutingModule
   ],
   exports: [
     RegistrationComponent
