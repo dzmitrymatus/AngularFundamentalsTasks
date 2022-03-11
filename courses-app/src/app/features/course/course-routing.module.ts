@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminGuard } from 'src/app/user/guards/admin.guard';
 import { CourseComponent } from './course.component';
 
 const routes: Routes = [
     {
         path: 'add',
+        canActivate: [AdminGuard],
         component: CourseComponent
     },
     {
@@ -13,6 +15,7 @@ const routes: Routes = [
     },
     {
         path: 'edit/:id',
+        canActivate: [AdminGuard],
         component: CourseComponent
     }
 ];
