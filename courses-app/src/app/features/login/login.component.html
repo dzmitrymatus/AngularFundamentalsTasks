@@ -2,7 +2,7 @@
     <div class="component-container">
         <h1>Login</h1>
         <div class="form-container">   
-            <form #formModel="ngForm">
+            <form #formModel="ngForm" (ngSubmit)="onSubmit(formModel)">
                 <div class="input-container">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" ngModel #emailModel="ngModel" required emailValidator>
@@ -18,7 +18,7 @@
                         <p>Field is required</p>
                     </div>
                 </div>
-                <app-button type="submit" buttonText="Login"></app-button>
+                <app-button buttonType="submit" buttonText="Login"></app-button>
             </form>
             <p>If you don't have an account you can <a [routerLink]="['/registration']">Registration</a></p>
         </div>

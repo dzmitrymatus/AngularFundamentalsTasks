@@ -21,7 +21,7 @@ const routes: Routes = [
         loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule),
     },
     {
-        path: 'courses',
+        path: 'course',
         canLoad: [AuthorizedGuard],
         loadChildren: () => import('./features/course/course.module').then(m => m.CourseModule)
     },
@@ -34,7 +34,5 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-
   })
   export class AppRoutingModule { }

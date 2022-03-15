@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthorizedGuard } from './guards/authorized.guard';
 import { NotAuthorizedGuard } from './guards/not-authorized.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -11,6 +13,11 @@ import { NotAuthorizedGuard } from './guards/not-authorized.guard';
   ],
   providers: [
     AuthorizedGuard,
-    NotAuthorizedGuard]
+    NotAuthorizedGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }]
 })
 export class AuthModule { }

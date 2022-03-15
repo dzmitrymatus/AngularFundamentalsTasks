@@ -18,7 +18,7 @@ export class UserStoreService {
 
   getUser() {
     this.userService.getUser().subscribe({
-      next: (data: UserModel) => {
+      next: (data) => {
          this.name$$.next(data.name); 
          this.isAdmin$$.next(data.role === "admin");
         },

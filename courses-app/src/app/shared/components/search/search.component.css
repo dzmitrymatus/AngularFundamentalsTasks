@@ -1,8 +1,10 @@
 .search {
-    width: 100%;
+    display: block;
+    padding: 3px;
     border-style: solid;
     border-color: #3dc3ec;
     border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .form-container {
@@ -14,10 +16,12 @@ form {
 }
 
 input {
+    margin-left: 5px;
     width: 90%;
 }
 
 app-button {
     margin-left: 20px;
+    margin-right: 0px;
     width: 10%;
 }

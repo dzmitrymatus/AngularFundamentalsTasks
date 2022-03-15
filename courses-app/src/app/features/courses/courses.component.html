@@ -1,44 +1,36 @@
-<h1>Search component example:</h1> 
-<app-search inputPlaceholder="Example placeholder"></app-search>
+<div class="courses-header">
+    <h1>Courses</h1>
+    <app-button *ngIf="editable" buttonText="Add course" [routerLink]="['/course/add']"></app-button>
+</div>
 
-<h1>Button component example:</h1> 
-<app-button buttonText="Example"></app-button>
+<app-search inputPlaceholder="Search courses..." (onClick)="onSearchClick($event)"></app-search>
 
-<h1>Header component example:</h1> 
-<app-header>
-    <span style="margin-right: 20px;">Dzmitry</span>
-    <app-button buttonText="Logout"></app-button>
-</app-header>
-
- <h1>Info component example:</h1>   
-<app-info title="Your list is empty" text="Please use the 'Add new course' button to add your first course">
-    <app-button buttonText="Add new cource"></app-button>
-</app-info>
-
-<h1>Course card component example:</h1> 
-<app-course-card 
-    [course]="courses[0]">
-    <app-button buttonText="Show course"></app-button>
-</app-course-card>
-
-<h1>Course list component example:</h1>
 <app-course-list 
     [courses]="courses"
-    [editable]="true" 
-    (onShow)="onShowId($event)"
-    (onEdit)="onShowId($event)"
-    (onRemove)="onShowId($event)">
-
+    [editable]="editable" 
+    (onShow)="onShowClick($event)"
+    (onEdit)="onEditClick($event)"
+    (onRemove)="onRemoveClick($event)">
 </app-course-list> 
-<h2>Course list component clicked button cardId example:</h2>
-<h3>{{selectedCourseId}}</h3>
 
-<h1>Confirm modal window example:</h1>
-<app-confirm-modal-window title="ExampleTitle" message="Example Message" #exampleModal></app-confirm-modal-window>
-<app-button buttonText="Show confirm modal" [confirmWindow]="exampleModal" (onClick)="onButtonClick()"></app-button>
-<h3>Dialog confirmed:</h3>
-<p>{{dialogConfirmed}}</p>
+<app-info *ngIf="courses.length === 0 && editable && !isSearch" 
+title="Your list is empty" 
+text="Please use the 'Add new course' button to add your first course">
+    <app-button buttonText="Add new course" [routerLink]="['/course/add']"></app-button>
+</app-info>
 
-<h1>Input type toggler example</h1>
-<input appInputTypeToggler #toggler="inputTypeToggler" [type]='toggler.inputType'>
-<br>
+<app-info *ngIf="courses.length === 0 && !editable && !isSearch" 
+title="Your list is empty" 
+text="You don't have courses">
+</app-info>
+
+<app-info *ngIf="courses.length === 0 && isSearch" 
+title="Your list is empty" 
+text="You don't have courses that pass search criteria">
+</app-info>
+
+
+
+
+
+

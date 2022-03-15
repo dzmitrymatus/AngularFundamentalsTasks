@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { validateEmail } from './validators/index';
 export { validateEmail } 
 import { validateValueContainsLatinLettersAndNumbersOnly } from './validators/index';
+import { RouterModule } from '@angular/router';
 export { validateValueContainsLatinLettersAndNumbersOnly }
 
 const componentsArray: Array<any> = [
@@ -39,7 +40,8 @@ const componentsArray: Array<any> = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports: [
     ...componentsArray,
@@ -47,7 +49,8 @@ const componentsArray: Array<any> = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ]
 })
 export class SharedModule {

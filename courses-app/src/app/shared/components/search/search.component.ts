@@ -15,10 +15,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit(formValue: any) {
-    console.log(formValue.searchValue);
-    if(formValue.searchValue) {
-      this.onClick.emit(formValue.searchValue);
-    }
+    this.onClick.emit(formValue.searchValue);
   }
 
 }

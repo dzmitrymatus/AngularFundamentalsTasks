@@ -1,9 +1,9 @@
-const baseUrl = "";
+const baseUrl = "http://localhost:3000";
 
 export const apiConfig = {
     baseUrl: baseUrl,
-    getAuthorsUrl: baseUrl + "/",
-    postAuthorUrl: baseUrl + "/",
+    getAuthorsUrl: baseUrl + "/authors/all",
+    postAuthorUrl: baseUrl + "/authors/add",
     coursesUrl: baseUrl + "/courses/all",
     courseUrl: baseUrl + "/courses",
     postCourseUrl: baseUrl + "/courses/add",

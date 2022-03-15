@@ -1,6 +1,11 @@
 <app-header>    
-    <span style="margin-right: 20px;">Dzmitry</span>
-    <app-button buttonText="Logout"></app-button>
+    <span *ngIf="isAuthorized" style="margin-right: 20px;">{{userName}}</span>
+    <app-button *ngIf="isAuthorized; else elseBlock" buttonText="Logout" (onClick)="logoutClick()"></app-button>
+    <ng-template #elseBlock>
+        <app-button buttonText="Login" routerLink="/login"></app-button>
+        <app-button buttonText="Register" routerLink="/registration"></app-button>
+    </ng-template>
+    
 </app-header>
 
 <router-outlet></router-outlet>

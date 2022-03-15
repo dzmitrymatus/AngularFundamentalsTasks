@@ -12,7 +12,7 @@ export class ButtonComponent implements OnInit {
   @Input() buttonType: string = "button";
   @Input() iconName: IconName | undefined = undefined;
   @Input() iconPrefix: IconPrefix = 'fas';
-  @Input() confirmWindow: ConfirmModalWindowComponent | undefined;
+  @Input() confirmWindow: ConfirmModalWindowComponent | undefined = undefined;
   @Output() onClick = new EventEmitter<void>();
 
   iconLookup:IconLookup| undefined = undefined;

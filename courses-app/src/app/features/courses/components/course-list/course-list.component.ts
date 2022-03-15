@@ -10,9 +10,9 @@ export class CourseListComponent implements OnInit {
   @Input() courses: CourseCardModel[] = [];
   @Input() editable: boolean = false;
 
-  @Output() onShow = new EventEmitter<number>();
-  @Output() onEdit = new EventEmitter<number>();
-  @Output() onRemove = new EventEmitter<number>();
+  @Output() onShow = new EventEmitter<string>();
+  @Output() onEdit = new EventEmitter<string>();
+  @Output() onRemove = new EventEmitter<string>();
 
   constructor() { }
   

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 import { CourseModel } from './courses.models';
 import { CoursesService } from './courses.service';
 
@@ -7,19 +7,23 @@ import { CoursesService } from './courses.service';
   providedIn: 'root'
 })
 export class CoursesStoreService {
-
+  private coursesFromServer$$: BehaviorSubject<CourseModel[]> = new BehaviorSubject<CourseModel[]>([]);
   private courses$$: BehaviorSubject<CourseModel[]> = new BehaviorSubject<CourseModel[]>([]);
   private isLoading$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public courses$: Observable<CourseModel[]> = this.courses$$.asObservable();
   public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
   
-  constructor(private coursesService: CoursesService) { }
+  constructor(private coursesService: CoursesService) {
+    this.coursesFromServer$$.subscribe(data => this.courses$$.next(data));
+   }
 
   getAll() {
     this.isLoading$$.next(true);
     this.coursesService.getAll().subscribe({
-      next: (data: CourseModel[]) => { this.courses$$.next(data) },
+      next: (data: CourseModel[]) => {
+        this.coursesFromServer$$.next(data);
+        },
       error: (error) => { console.log(`error: ${error}`); this.isLoading$$.next(false) },
       complete: () => { this.isLoading$$.next(false) } 
     });
@@ -79,6 +83,10 @@ export class CoursesStoreService {
       error: (error) => { console.log(`error: ${error}`); this.isLoading$$.next(false) },
       complete: () => { this.isLoading$$.next(false) } 
     });
+  }
+
+  searchCourse(courseTitle: string) {
+    this.courses$$.next(this.coursesFromServer$$.value.filter(value => value.title.startsWith(courseTitle)));
   }
 
 }

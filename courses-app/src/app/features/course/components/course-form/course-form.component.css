@@ -9,6 +9,7 @@
 }
 
 .input-container {
+    width: 100%;
     text-align: left;
     margin-bottom: 30px;
 }
@@ -36,7 +37,7 @@
 }
 
 .input-container textarea {
-    width: 100%;
+    width: 99%;
 }
 
 .input-container .validation-error-container,  .input-container .validation-error-container p {
@@ -59,7 +60,7 @@ form.ng-submitted input.ng-invalid,  form input.ng-invalid.ng-touched, form.ng-s
     border-radius: 2px;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 99%;
 }
 
 .author-container, .duration-container, .authors-list-container {

@@ -5,7 +5,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RegistrationRoutingModule } from './registration-routing.module';
 
 
-
 @NgModule({
   declarations: [
     RegistrationComponent

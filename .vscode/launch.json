@@ -5,25 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Chrome",
+            "port": 9223,
+            "request": "attach",
+            "type": "pwa-chrome",
+            "webRoot": "${workspaceFolder}/courses-app"
+        },
+        {
             "name": "Attach to Edge",
             "port": 9222,
             "request": "attach",
             "type": "pwa-msedge",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/AngularFundamentalsTasks/courses-app"
         },
     {
         "name": "Launch Edge",
         "request": "launch",
         "type": "pwa-msedge",
-        "url": "http://localhost:4200",
-        "webRoot": "${workspaceFolder}"
+        "url": "http://localhost:4200/*",
+        "webRoot": "${workspaceFolder}/courses-app"
     },
         {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}/courses-app"
         }
     ]
 }

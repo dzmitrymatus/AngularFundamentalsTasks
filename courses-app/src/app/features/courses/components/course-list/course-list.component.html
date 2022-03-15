@@ -1,7 +1,8 @@
 <div class="course-list">
     <app-course-card *ngFor="let course of courses" [course]="course"> 
-        <app-button buttonText="Show course" (click)="onShow.emit(course.id)"></app-button>
-        <app-button *ngIf="editable" iconName="edit" (click)="onEdit.emit(course.id)"></app-button>
-        <app-button *ngIf="editable" iconName="trash" (click)="onRemove.emit(course.id)"></app-button>
+        <app-button buttonText="Show course" (onClick)="onShow.emit(course.id)"></app-button>
+        <app-button *ngIf="editable" iconName="edit" (onClick)="onEdit.emit(course.id)"></app-button>
+        <app-confirm-modal-window title="Confirm removing" message="Do you want to remove this item?" #removeModal></app-confirm-modal-window>
+        <app-button *ngIf="editable" iconName="trash" [confirmWindow]="removeModal" (onClick)="onRemove.emit(course.id)"></app-button>
     </app-course-card>
 </div>
