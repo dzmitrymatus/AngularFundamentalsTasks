@@ -18,7 +18,7 @@ export class CoursesService {
   }
 
   getCourse(courseId: string): Observable<CourseModel> {
-    return this.http.get<Response<CourseModel>>(environment.apiConfig.courseUrl, {params: {id : courseId}})
+    return this.http.get<Response<CourseModel>>(`${environment.apiConfig.courseUrl}/${courseId}`)
       .pipe(map(data => data.result));
   }
 
@@ -27,13 +27,13 @@ export class CoursesService {
       .pipe(map(data => data.result));
   }
 
-  editCourse(course: CourseModel): Observable<CourseModel> {
-    return this.http.put<Response<CourseModel>>(environment.apiConfig.courseUrl, course, {params: {id : course.id}})
+  editCourse(course: CourseModel): Observable<string> {
+    return this.http.put<Response<string>>(`${environment.apiConfig.courseUrl}/${course.id}`, course)
     .pipe(map(data => data.result));
   }
 
-  deleteCourse(courseId: string): Observable<CourseModel> {
-    return this.http.delete<Response<CourseModel>>(environment.apiConfig.courseUrl, {params: {id : courseId}})
+  deleteCourse(courseId: string): Observable<string> {
+    return this.http.delete<Response<string>>(`${environment.apiConfig.courseUrl}/${courseId}`)
     .pipe(map(data => data.result));
   }
 }

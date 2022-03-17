@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest, forkJoin, map, merge, mergeMap, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { combineLatest, map, mergeMap, Observable, Subscription, switchMap } from 'rxjs';
 import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
 import { AuthorModel } from 'src/app/services/authors/authors.models';
 import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
@@ -19,21 +20,30 @@ export class CoursesComponent implements OnInit {
 
   constructor(private coursesStoreService: CoursesStoreService,
     private authorsStoreService: AuthorsStoreService,
-    private userStoreService: UserStoreService) { }
+    private userStoreService: UserStoreService,
+    private router: Router) { }
+
+  ngOnInit(): void {
+    this.coursesStoreService.getAll()
+      .subscribe(() => this.authorsStoreService.getAll()
+        .subscribe(() => this.mapCourses(this.coursesStoreService.courses$, this.authorsStoreService.authors$)
+            .subscribe(data => this.courses = data)));
+
+    this.userStoreService.isAdmin$
+      .subscribe(data => this.editable = data);
+  }
 
   onShowClick(id: string) {
-    console.log("show action");
-    //this.selectedCourseId = id;
+    this.router.navigateByUrl(`course/${id}`);
   }
 
   onEditClick(id: string) {
-    console.log("edit action");
-    //this.selectedCourseId = id;
+    this.router.navigateByUrl(`course/edit/${id}`);
   }
 
   onRemoveClick(id: string) {
-    console.log("delete action" + id);
-    //this.selectedCourseId = id;
+    this.coursesStoreService.deleteCourse(id)
+      .subscribe();
   }
 
   onSearchClick(text: string) {
@@ -43,15 +53,6 @@ export class CoursesComponent implements OnInit {
       this.isSearch = false;
     }
     this.coursesStoreService.searchCourse(text);
-  }
-
-  ngOnInit(): void {
-    this.mapCourses(this.coursesStoreService.courses$, this.authorsStoreService.authors$)
-      .subscribe(data => this.courses = data);
-      this.coursesStoreService.getAll();
-      this.authorsStoreService.getAll();
-
-    this.userStoreService.isAdmin$.subscribe(data => this.editable = data);
   }
 
   mapCourses(courses$: Observable<CourseModel[]>, authors$: Observable<AuthorModel[]>): Observable<CourseCardModel[]> {

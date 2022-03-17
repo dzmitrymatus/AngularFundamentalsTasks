@@ -8,7 +8,7 @@
                     <p *ngIf="title.errors['required']">Title is required</p>
                 </div>
             </div>
-            <app-button buttonText="Create course" buttonType="submit"></app-button>
+            <app-button [buttonText]="isCreatePage? 'Create course' : 'Edit course'" buttonType="submit"></app-button>
             <div class="input-container">
                 <label for="description">Description</label>
                 <textarea id="description" rows="15" name="description" formControlName="description"></textarea>
@@ -19,7 +19,7 @@
         </div>
         <div class="secondary-info">
             <div class="author-container">
-                <div class="authors-add" [formGroup]="newAuthor">
+                <div class="authors-add" formGroupName="newAuthor">
                     <h2>Add authors</h2>
                     <div class="input-container">
                         <label for="authorName">Author name</label>
@@ -36,7 +36,7 @@
                 <h2>Authors list</h2>
                 <div class="input-container">
                     <div class="author-line" *ngFor="let author of authors.controls; let i=index">
-                        <input disabled [value]="author.value">
+                        <input disabled [value]="author.value.name">
                         <app-button buttonText="Delete author" (onClick)="onDeleteAuthor(i)"></app-button>
                     </div>
                     <div class="validation-error-container" *ngIf="authors.errors && courseFormRef.submitted">
@@ -44,24 +44,11 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="duration-container">
-                <h2>Duration</h2>
-                    <div class="input-container">
-                        <label for="duration">Duration</label>
-                        <input type="text" id="duration" name="duration" formControlName="duration">
-                        <div class="validation-error-container" *ngIf="duration.errors && (courseFormRef.submitted || duration.touched)">
-                            <p *ngIf="duration.errors['required']">Duration is required</p>
-                            <p *ngIf="duration.errors['min']">Duration should be not less than 0</p>
-                        </div>
-                        <p>Duration: {{duration.value|duration}} hours</p>
-                    </div>
-            </div> -->
             <div class="duration-container">
                 <h2>Duration</h2>
                     <div class="input-container">
                         <label for="duration">Duration</label>
-                        <input #durationElement type="text" id="duration" name="duration" formControlName="duration">
+                        <input #durationElement type="number" id="duration" name="duration" formControlName="duration">
 
                         <ng-template
                             appControlError

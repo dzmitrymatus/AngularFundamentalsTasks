@@ -10,8 +10,8 @@ export class DurationPipe implements PipeTransform {
     let hours = Math.floor(duration / 60);
     let minutes = Math.floor(duration % 60);
 
-    let hoursString: string = hours > 10 ? hours.toString() : '0' + hours;
-    let minutesString: string = minutes > 10 ? minutes.toString() : '0' + minutes;
+    let hoursString: string = hours >= 10 ? hours.toString() : '0' + hours;
+    let minutesString: string = minutes >= 10 ? minutes.toString() : '0' + minutes;
 
     return `${hoursString}:${minutesString}`;
   }

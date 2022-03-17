@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, mergeMap, Observable } from 'rxjs';
+import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
+import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
+import { CourseModel } from 'src/app/services/courses/courses.models';
 import { validateValueContainsLatinLettersAndNumbersOnly } from 'src/app/shared/shared.module';
 
 @Component({
@@ -10,22 +15,53 @@ import { validateValueContainsLatinLettersAndNumbersOnly } from 'src/app/shared/
 export class CourseFormComponent implements OnInit {
 
   courseForm : FormGroup;
-  newAuthor : FormGroup;
+  id!: string;
+  isCreatePage!: boolean;
   
-  constructor() {
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private coursesStoreService: CoursesStoreService,
+    private authorsStoreService: AuthorsStoreService) {
     this.courseForm = new FormGroup({
       "title" : new FormControl("", [Validators.required]),
       "description" : new FormControl("", [Validators.required]),
       "duration" : new FormControl("", [Validators.required, Validators.min(1)]),
-      "authors" : new FormArray([], [Validators.required])
-    });
-
-    this.newAuthor = new FormGroup({
-      "authorName" : new FormControl("", [validateValueContainsLatinLettersAndNumbersOnly])
+      "authors" : new FormArray([], [Validators.required]),
+      "newAuthor" : new FormGroup({
+           "authorName" : new FormControl("", [validateValueContainsLatinLettersAndNumbersOnly])
+         })
     });
    }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.isCreatePage = !this.id;
+
+    if(!this.isCreatePage) {
+      this.coursesStoreService.getCourse(this.id)
+        .pipe(
+          mergeMap((course) => 
+            this.authorsStoreService.authors$
+              .pipe(
+                map((data) => {
+                  return {
+                    title: course.title,
+                    description: course.description,
+                    duration: course.duration,
+                    authors: data.filter(element => course.authors.find(x => x === element.id))
+                  }
+                })
+              )
+          )
+        )
+        .subscribe((course) => {
+          this.courseForm.patchValue(course);
+          course.authors.forEach(author => this.authors.push(new FormGroup({
+            "id": new FormControl(author.id),
+            "name": new FormControl(author.name)
+          })));
+        }); 
+    }
   }
 
   get title() : FormControl {
@@ -37,7 +73,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   get newAuthorName() : FormControl {
-    return this.newAuthor.controls['authorName'] as FormControl;
+    return this.courseForm.get('newAuthor.authorName') as FormControl;
   }
 
   get duration() : FormControl {
@@ -50,14 +86,36 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit() {
     if(this.courseForm.valid) {
-      console.log(this.courseForm.value);
+      let observable: Observable<any>;
+      let course: CourseModel = {
+        id: '',
+        title: this.courseForm.value.title,
+        description: this.courseForm.value.description,
+        creationDate: '',
+        duration: this.courseForm.value.duration,
+        authors: (this.courseForm.value.authors as Array<any>).map(x => x.id)
+      };
+
+      if(!this.isCreatePage) {
+        course.id = this.id;
+        observable = this.coursesStoreService.editCourse(course);
+      } else {
+        observable = this.coursesStoreService.createCourse(course);
+      }
+
+      observable.subscribe(data => this.router.navigateByUrl('/courses'));
     }   
   }
 
   onAddAuthor() {
-    if(this.newAuthor.valid && this.newAuthorName.value !== "") {
-      this.authors.push(new FormControl(this.newAuthorName.value));
-      this.newAuthorName.setValue("");
+    if(this.newAuthorName.valid 
+      && this.newAuthorName.value !== "" 
+      && !this.authors.controls.find(x => x.value.name === this.newAuthorName.value)) {
+      this.authorsStoreService.addAuthor({id: '', name:  this.newAuthorName.value})
+        .subscribe((author) => {
+          this.authors.push(new FormControl({id: author.id, name: author.name}));
+          this.newAuthorName.setValue("");
+        });
     }
   }
 
