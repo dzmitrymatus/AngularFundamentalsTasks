@@ -9,15 +9,16 @@ export class SearchComponent implements OnInit {
   @Input() inputPlaceholder: string = "";
   @Output() onClick = new EventEmitter<string>();
 
+  searchValue: string = "";
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(formValue: any) {
-    console.log(formValue.searchValue);
-    if(formValue.searchValue) {
-      this.onClick.emit(formValue.searchValue);
+  onSubmit() {
+    if(this.searchValue) {
+      this.onClick.emit(this.searchValue);
     }
   }
 

@@ -1,7 +1,7 @@
 <div class="search">
     <div class="form-container">
-        <form #formModel="ngForm" (ngSubmit)="onSubmit(formModel.value)">
-            <input name="searchValue" ngModel>
+        <form #formModel="ngForm" (ngSubmit)="onSubmit()">
+            <input name="searchValue" [(ngModel)]="searchValue">
             <app-button buttonType="submit" buttonText="Search"></app-button>
         </form> 
     </div>
