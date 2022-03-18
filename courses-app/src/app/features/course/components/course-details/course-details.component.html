@@ -1,0 +1,20 @@
+<div *ngIf="course" class="course-details">
+    <h1>Course details</h1>
+    <div class="course-details-main">
+        <h2>Title: {{course.title}}</h2>
+        <p><b>Description:</b> {{course.description}}</p>
+    </div>
+    <div class="course-details-info">
+        <p><b>Authors:</b></p>
+        <ul>
+            <li *ngFor="let author of course.authors">
+                {{author}}
+            </li>
+        </ul>
+        <p><b>Duration:</b> {{course.duration|duration}} 
+            <span *ngIf="course.duration < 120"> hour</span>           
+            <span *ngIf="course.duration >= 120"> hours</span>   
+        </p>
+        <p><b>Created:</b> {{course.creationDate|creationDate}}</p>
+    </div>
+</div>
