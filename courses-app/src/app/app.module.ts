@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { UserModule } from './user/user.module';
     SharedModule,
     AppRoutingModule,
     AuthModule,
-    UserModule
+    UserModule,
+    RouterModule,
+    HttpClientModule
   ],
   providers: [
     { provide: Window, useValue: window }

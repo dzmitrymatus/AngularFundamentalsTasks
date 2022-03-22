@@ -5,7 +5,7 @@ import { map, mergeMap, Observable } from 'rxjs';
 import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
 import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
 import { CourseModel } from 'src/app/services/courses/courses.models';
-import { validateValueContainsLatinLettersAndNumbersOnly } from 'src/app/shared/shared.module';
+import { validateLatinLettersAndNumbersOnly } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-course-form',
@@ -28,7 +28,7 @@ export class CourseFormComponent implements OnInit {
       "duration" : new FormControl("", [Validators.required, Validators.min(1)]),
       "authors" : new FormArray([], [Validators.required]),
       "newAuthor" : new FormGroup({
-           "authorName" : new FormControl("", [validateValueContainsLatinLettersAndNumbersOnly])
+           "authorName" : new FormControl("", [validateLatinLettersAndNumbersOnly])
          })
     });
    }

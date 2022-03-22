@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CourseFormComponent } from './components/course-form/course-form.component';
 import { CourseRoutingModule } from './course-routing.module';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { CourseDetailsComponent } from './components/course-details/course-detai
   imports: [
     CommonModule,
     SharedModule,
-    CourseRoutingModule
+    CourseRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     CourseComponent
