@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
-export function validateValueContainsLatinLettersAndNumbersOnly(control: AbstractControl): ValidationErrors | null {
+export function validateLatinLettersAndNumbersOnly(control: AbstractControl): ValidationErrors | null {
   if(!control.value) return null;
 
   var regExp = new RegExp('^(?!\\s)[a-zA-Z0-9\\s]*$');
@@ -19,7 +19,7 @@ export function validateValueContainsLatinLettersAndNumbersOnly(control: Abstrac
 export class LatinLettersAndNumbersValidatorDirective implements Validator {
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return validateValueContainsLatinLettersAndNumbersOnly(control);
+    return validateLatinLettersAndNumbersOnly(control);
   }
 
 }
