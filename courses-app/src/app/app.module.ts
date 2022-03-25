@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
-
-import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-
+import { AppComponent } from './app.component';
+import { reducers, effects } from './store';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,13 @@ import { HttpClientModule } from '@angular/common/http';
     AuthModule,
     UserModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      autoPause: true
+    })
   ],
   providers: [
     { provide: Window, useValue: window }
