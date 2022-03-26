@@ -5,7 +5,7 @@ import { AuthorsStoreService } from 'src/app/services/authors/authors-store.serv
 import { AuthorModel } from 'src/app/services/authors/authors.models';
 import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
 import { CourseModel } from 'src/app/services/courses/courses.models';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
+import { UserFacade } from 'src/app/user/store/user.facade';
 import { CourseCardModel } from './models/course-card.model';
 
 @Component({
@@ -15,12 +15,12 @@ import { CourseCardModel } from './models/course-card.model';
 })
 export class CoursesComponent implements OnInit {
   courses: CourseCardModel[] = [];
-  editable: boolean = false;
+  editable$: Observable<boolean> = this.userFacade.isAdmin$;
   isSearch: boolean = false;
 
   constructor(private coursesStoreService: CoursesStoreService,
     private authorsStoreService: AuthorsStoreService,
-    private userStoreService: UserStoreService,
+    private userFacade: UserFacade,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -28,9 +28,6 @@ export class CoursesComponent implements OnInit {
       .subscribe(() => this.authorsStoreService.getAll()
         .subscribe(() => this.mapCourses(this.coursesStoreService.courses$, this.authorsStoreService.authors$)
             .subscribe(data => this.courses = data)));
-
-    this.userStoreService.isAdmin$
-      .subscribe(data => this.editable = data);
   }
 
   onShowClick(id: string) {

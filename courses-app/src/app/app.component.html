@@ -1,6 +1,6 @@
 <app-header>    
-    <span *ngIf="isAuthorized" style="margin-right: 20px;">{{userName}}</span>
-    <app-button *ngIf="isAuthorized; else elseBlock" buttonText="Logout" (onClick)="logoutClick()"></app-button>
+    <span *ngIf="isAuthorized$ | async" style="margin-right: 20px;">{{userName$ | async}}</span>
+    <app-button *ngIf="isAuthorized$ | async; else elseBlock" buttonText="Logout" (onClick)="logoutClick()"></app-button>
     <ng-template #elseBlock>
         <app-button buttonText="Login" routerLink="/login"></app-button>
         <app-button buttonText="Register" routerLink="/registration"></app-button>

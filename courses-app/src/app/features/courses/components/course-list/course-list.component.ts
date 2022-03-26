@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CourseListComponent implements OnInit {
   @Input() courses: CourseCardModel[] = [];
-  @Input() editable: boolean = false;
+  @Input() editable: boolean | null = false;
 
   @Output() onShow = new EventEmitter<string>();
   @Output() onEdit = new EventEmitter<string>();

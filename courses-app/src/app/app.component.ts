@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth/services/auth.service';
-import { UserStoreService } from './user/services/user-store.service';
+import { UserFacade } from './user/store/user.facade';
 
 @Component({
   selector: 'app-root',
@@ -10,21 +11,14 @@ import { UserStoreService } from './user/services/user-store.service';
 })
 export class AppComponent implements OnInit {
   title = 'courses-app';
-  isAuthorized = false;
-  userName = "";
+  isAuthorized$: Observable<boolean> = this.authService.isAuthorized$;
+  userName$ = this.userFacade.name$;
 
   constructor(private authService: AuthService,
-    private userStoreService: UserStoreService,
+    private userFacade: UserFacade,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.isAuthorized$.subscribe(data => {
-       this.isAuthorized = data; 
-       if(data) {
-         this.userStoreService.getUser();
-         this.userStoreService.name$.subscribe(data => this.userName = data);
-       } 
-      });
   }
 
   logoutClick() {
