@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +12,16 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
 
-  constructor(private authService: AuthService, private router: Router) { }
-
+  constructor(private router: Router,
+    private authStateFacade: AuthStateFacade) { }
+  
   ngOnInit(): void {
   }
 
   onSubmit(form: NgForm) {
     if(form.valid)
     {
-      this.authService.login(form.value).subscribe(
-        () => this.router.navigateByUrl("/")
-      );
+      this.authStateFacade.login(form.value);
     }
   }
 

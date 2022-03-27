@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth/services/auth.service';
-import { UserFacade } from './user/store/user.facade';
+import { AuthStateFacade } from './auth/store/auth.facade';
+import { UserStateFacade } from './user/store/user.facade';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +11,19 @@ import { UserFacade } from './user/store/user.facade';
 })
 export class AppComponent implements OnInit {
   title = 'courses-app';
-  isAuthorized$: Observable<boolean> = this.authService.isAuthorized$;
-  userName$ = this.userFacade.name$;
+  isAuthorized$: Observable<boolean> = this.authStateFacade.isAuthorized$;
+  userName$ = this.userStateFacade.name$;
 
-  constructor(private authService: AuthService,
-    private userFacade: UserFacade,
-    private router: Router) { }
+  constructor(private router: Router,
+    private authStateFacade: AuthStateFacade,
+    private userStateFacade: UserStateFacade
+    ) { }
 
   ngOnInit(): void {
   }
 
   logoutClick() {
-    this.authService.logout()
-      .subscribe(() => this.router.navigateByUrl("/login"));
+    this.authStateFacade.logout();
   }
 
 }

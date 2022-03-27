@@ -7,7 +7,7 @@ import * as UserSelectors from "./user.selectors";
 @Injectable({
   providedIn: 'root',
 })
-export class UserFacade {
+export class UserStateFacade {
   name$ = this.store.pipe(select(UserSelectors.getName));
   isAdmin$ = this.store.pipe(select(UserSelectors.isAdmin));
 
