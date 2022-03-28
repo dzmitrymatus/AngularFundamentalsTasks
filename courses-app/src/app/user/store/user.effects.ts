@@ -24,8 +24,7 @@ export class UserEffects {
         )
       );
 
-    constructor(
-        private actions$: Actions,
+    constructor(private actions$: Actions,
         private userService: UserService
       ) {}
 }

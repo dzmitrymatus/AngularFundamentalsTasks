@@ -49,8 +49,7 @@ export class AuthEffects {
       )
   );
 
-    constructor(
-        private actions$: Actions,
+    constructor(private actions$: Actions,
         private authService: AuthService,
         private router: Router
       ) {}

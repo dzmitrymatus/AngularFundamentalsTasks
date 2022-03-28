@@ -4,7 +4,7 @@ import { UserModel } from "./user.models";
 export enum UserActions {
     RequestCurrentUser = '[User Actions] RequestCurrentUser',
     RequestCurrentUserSuccess = '[User Actions] RequestCurrentUserSuccess',
-    RequestCurrentUserFail = '[User Actions] RequestCurrentUserFail',
+    RequestCurrentUserFail = '[User Actions] RequestCurrentUserFail'
   }
 
 export const requestCurrentUser = createAction(UserActions.RequestCurrentUser);
