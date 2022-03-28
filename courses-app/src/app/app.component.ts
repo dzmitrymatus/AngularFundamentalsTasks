@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthStateFacade } from './auth/store/auth.facade';
 import { UserStateFacade } from './user/store/user.facade';
@@ -14,8 +13,7 @@ export class AppComponent implements OnInit {
   isAuthorized$: Observable<boolean> = this.authStateFacade.isAuthorized$;
   userName$ = this.userStateFacade.name$;
 
-  constructor(private router: Router,
-    private authStateFacade: AuthStateFacade,
+  constructor(private authStateFacade: AuthStateFacade,
     private userStateFacade: UserStateFacade
     ) { }
 

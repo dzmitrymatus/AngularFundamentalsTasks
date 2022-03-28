@@ -7,7 +7,7 @@
 
 <app-course-list 
     [courses]="courses"
-    [editable]="editable$ | async" 
+    [editable]="(editable$|async)" 
     (onShow)="onShowClick($event)"
     (onEdit)="onEditClick($event)"
     (onRemove)="onRemoveClick($event)">
