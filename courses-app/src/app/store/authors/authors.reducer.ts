@@ -18,7 +18,7 @@ export const authorsReducer = createReducer(
     initialState,
     on(AuthorsActions.requestAuthorsSuccess, (state, {authors}) => ({...state, authors: authors})),
     on(AuthorsActions.requestAuthorsFail, (state) => state),
-    on(AuthorsActions.requestAddAuthorSuccess, (state, {author}) => ({...state, addedAuthor: author})),
+    on(AuthorsActions.requestAddAuthorSuccess, (state, author) => ({...state, addedAuthor: author})),
     on(AuthorsActions.requestAddAuthorFail, (state) => ({...state, addedAuthor: null})),
     on(AuthorsActions.resetAddedAuthor, (state) => ({...state, addedAuthor: null}))
 );
