@@ -7,8 +7,6 @@ import { CourseRoutingModule } from './course-routing.module';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     CourseComponent,

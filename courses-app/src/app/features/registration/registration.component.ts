@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 import { validateEmail } from 'src/app/shared/shared.module';
 
@@ -13,8 +12,7 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm : FormGroup;
 
-  constructor(private authStateFacade: AuthStateFacade,
-    private router: Router) {
+  constructor(private authStateFacade: AuthStateFacade) {
     this.registrationForm = new FormGroup({
       "name" : new FormControl("", [Validators.required, Validators.minLength(6)]),
       "email" : new FormControl("", [Validators.required, validateEmail]),

@@ -17,9 +17,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.searchValue) {
       this.onClick.emit(this.searchValue);
-    }
   }
 
 }

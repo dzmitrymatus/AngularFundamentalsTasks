@@ -11,7 +11,9 @@ import { CourseStoreModel } from "./courses.models";
 import { CourseModel } from "src/app/services/courses/courses.models";
 import { Router } from "@angular/router";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CoursesEffects { 
 
     getAll$ = createEffect(() => this.actions$.pipe(
@@ -33,7 +35,12 @@ export class CoursesEffects {
         ofType(CoursesActions.requestFilteredCourses),
         mergeMap((payload) => this.coursesStateFacade.allCourses$
           .pipe(
-            map(courses => CoursesActions.requestAllCoursesSuccess({courses: courses.filter(value => value.title.startsWith(payload.filter))}))
+            map(courses => payload.filter !== ""? 
+                  CoursesActions.requestFilteredCoursesSuccess({
+                    courses: courses.filter(value => value.title.startsWith(payload.filter))
+                  }) :
+                  CoursesActions.requestAllCoursesSuccess({courses: courses})
+            )
           ))
         )
     );
@@ -81,10 +88,10 @@ export class CoursesEffects {
     );
 
     redirectToTheCoursesPage$ = createEffect(() => this.actions$.pipe(
-        ofType(CoursesActions.requestCreateCourseSuccess),
-        ofType(CoursesActions.requestEditCourseSuccess),
-        ofType(CoursesActions.requestSingleCourseFail),
-        tap(() => this.router.navigateByUrl('/login'))),
+        ofType(CoursesActions.requestCreateCourseSuccess, 
+          CoursesActions.requestEditCourseSuccess,
+          CoursesActions.requestSingleCourseFail),
+        tap(() => this.router.navigateByUrl('/courses'))),
         { dispatch: false }    
     );
 
@@ -96,10 +103,12 @@ export class CoursesEffects {
       ) {}
 
     private MapCourseToCourseStore(course: CourseModel, authors: AuthorStoreModel[]): CourseStoreModel  {
-        return {
-            ...course, 
-            authors: authors.filter(author => course.authors.some(x => x === author.id))
-            };
+      let date = course.creationDate.split('/');
+      return {
+          ...course,
+          creationDate: `${date[1]}/${date[0]}/${date[2]}`,
+          authors: authors.filter(author => course.authors.some(x => x === author.id))
+          };
     }
 
     private MapCourseStoreToCourse(course: CourseStoreModel): CourseModel  {

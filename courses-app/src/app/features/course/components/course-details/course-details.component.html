@@ -1,4 +1,4 @@
-<div *ngIf="course" class="course-details">
+<div *ngIf="course$ | async; let course" class="course-details">
     <h1>Course details</h1>
     <div class="course-details-main">
         <h2>Title: {{course.title}}</h2>

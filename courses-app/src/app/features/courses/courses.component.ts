@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest, map, mergeMap, Observable, Subscription, switchMap } from 'rxjs';
-import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
-import { AuthorModel } from 'src/app/services/authors/authors.models';
-import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
-import { CourseModel } from 'src/app/services/courses/courses.models';
+import { map, Observable } from 'rxjs';
+import { AuthorsStateFacade } from 'src/app/store/authors/authors.facade';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
+import { CourseStoreModel } from 'src/app/store/courses/courses.models';
 import { UserStateFacade } from 'src/app/user/store/user.facade';
 import { CourseCardModel } from './models/course-card.model';
 
@@ -14,20 +13,19 @@ import { CourseCardModel } from './models/course-card.model';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-  courses: CourseCardModel[] = [];
+  courses$: Observable<CourseCardModel[]> = this.mapCoursesToViewModel(this.coursesStateFacade.courses$);
   editable$: Observable<boolean> = this.userStateFacade.isAdmin$;
-  isSearch: boolean = false;
+  isSearch$: Observable<boolean> = this.coursesStateFacade.isSearchingState$;
 
-  constructor(private coursesStoreService: CoursesStoreService,
-    private authorsStoreService: AuthorsStoreService,
-    private userStateFacade: UserStateFacade,
-    private router: Router) { }
+  constructor(private router: Router,
+    private coursesStateFacade: CoursesStateFacade,
+    private authorsStateFacade: AuthorsStateFacade,
+    private userStateFacade: UserStateFacade
+    ) { }
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll()
-      .subscribe(() => this.authorsStoreService.getAll()
-        .subscribe(() => this.mapCourses(this.coursesStoreService.courses$, this.authorsStoreService.authors$)
-            .subscribe(data => this.courses = data)));
+    this.authorsStateFacade.getAuthors();
+    this.coursesStateFacade.getAllCourses();
   }
 
   onShowClick(id: string) {
@@ -39,32 +37,24 @@ export class CoursesComponent implements OnInit {
   }
 
   onRemoveClick(id: string) {
-    this.coursesStoreService.deleteCourse(id)
-      .subscribe();
+    this.coursesStateFacade.deleteCourse(id);
   }
 
   onSearchClick(text: string) {
-    if(text) {
-      this.isSearch = true;
-    } else {
-      this.isSearch = false;
-    }
-    this.coursesStoreService.searchCourse(text);
+    this.coursesStateFacade.getFilteredCourses(text);
   }
 
-  mapCourses(courses$: Observable<CourseModel[]>, authors$: Observable<AuthorModel[]>): Observable<CourseCardModel[]> {
-    return combineLatest({courses: courses$, authors: authors$})
-      .pipe(
-          map(({courses, authors}) => { 
-            return courses.map(value => { return {
-              id: value.id,
-              title: value.title,
-              description: value.description,
-              creationDate: new Date(value.creationDate),
-              duration: value.duration,
-              authors: value.authors.map(author => authors.find(x => x.id === author)?.name)
-          } as CourseCardModel})})
-        );
+  mapCoursesToViewModel(courses$: Observable<CourseStoreModel[]>): Observable<CourseCardModel[]> {
+    return courses$.pipe(
+              map((courses) => courses.map(
+                course => ({
+                    ...course, 
+                    creationDate: new Date(course.creationDate), 
+                    authors: course.authors.map(author => author.name)
+                  })
+                )
+              )
+            );
   }
 
 }

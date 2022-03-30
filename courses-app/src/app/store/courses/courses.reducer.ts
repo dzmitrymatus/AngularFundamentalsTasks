@@ -28,11 +28,10 @@ export const coursesReducer = createReducer(
     initialState,
     //Request All Courses actions
     on(CoursesActions.requestAllCourses, (state) => ({...state, isAllCoursesLoading: true})),
-    on(CoursesActions.requestAllCoursesSuccess, (state, {courses}) => ({...state, allCourses: courses, isAllCoursesLoading: false})),
+    on(CoursesActions.requestAllCoursesSuccess, (state, {courses}) => ({...state, allCourses: courses, courses: courses, isAllCoursesLoading: false, isSearchState: false})),
     on(CoursesActions.requestAllCoursesFail, (state, {errorMessage}) => ({...state, isAllCoursesLoading: false, errorMessage: errorMessage})),
     //Request Filtered Courses actions
-    on(CoursesActions.requestFilteredCourses, (state) => ({...state, isSearchState: true})),
-    on(CoursesActions.requestFilteredCoursesSuccess, (state, {courses}) => ({...state, courses: courses, isSearchState: false})),
+    on(CoursesActions.requestFilteredCoursesSuccess, (state, {courses}) => ({...state, courses: courses, isSearchState: true})),
     //Request Create Course actions
     on(CoursesActions.requestCreateCourseSuccess, (state, {course}) => ({...state, course: course, allCourses: [...state.allCourses, course]})),
     on(CoursesActions.requestCreateCourseFail, (state, {errorMessage}) => ({...state, errorMessage: errorMessage})),

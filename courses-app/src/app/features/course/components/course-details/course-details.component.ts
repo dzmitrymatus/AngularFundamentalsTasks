@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap } from 'rxjs';
-import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
-import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
+import { map, Observable } from 'rxjs';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
+import { CourseStoreModel } from 'src/app/store/courses/courses.models';
 import { CourseDetailsModel } from '../../models/course.models';
 
 @Component({
@@ -11,34 +11,25 @@ import { CourseDetailsModel } from '../../models/course.models';
   styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit {
-  course! : CourseDetailsModel;
+  course$: Observable<CourseDetailsModel|null> = this.mapCoursesToViewModel(this.coursesStateFacade.course$);
 
   constructor(private route: ActivatedRoute,
-    private coursesStoreService: CoursesStoreService,
-    private authorsStoreService: AuthorsStoreService) { }
+    private coursesStateFacade: CoursesStateFacade) { }
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
+    this.coursesStateFacade.getSingleCourse(id);
+  }
 
-    this.coursesStoreService.getCourse(id)
-        .pipe(
-          mergeMap((course) => 
-            this.authorsStoreService.authors$
-              .pipe(
-                map((data) => {
-                  return {
-                    title: course.title,
-                    description: course.description,
-                    duration: course.duration,
-                    creationDate: new Date(course.creationDate),
-                    authors: data.filter(element => course.authors.find(x => x === element.id))
-                                .map(author => author.name)
-                  } as CourseDetailsModel
-                })
+  mapCoursesToViewModel(course$: Observable<CourseStoreModel|null>): Observable<CourseDetailsModel | null> {
+    return course$.pipe(
+              map((course) => course? ({
+                    ...course, 
+                    creationDate: new Date(course.creationDate), 
+                    authors: course.authors.map(author => author.name)
+                  }) : null                
               )
-          )
-        )
-        .subscribe(data => this.course = data);
+            );
   }
 
 }
