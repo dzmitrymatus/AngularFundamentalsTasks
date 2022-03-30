@@ -24,20 +24,20 @@ export class ButtonComponent implements OnInit {
       this.iconLookup = {prefix: this.iconPrefix, iconName: this.iconName};
     }
 
-    if(this.confirmWindow !== undefined){
+    if(this.confirmWindow){
       this.confirmWindow.onClose.subscribe(x => 
         {
-          if(x === true) this.onClick.emit();
+          if(x) this.onClick.emit();
           this.confirmWindow?.hide();
         });
     } 
    }
 
   onButtonClick() {
-    if(this.confirmWindow === undefined) {
-      this.onClick.emit();
+    if(this.confirmWindow) {
+      this.confirmWindow.show();    
     } else {
-      this.confirmWindow.show();
+      this.onClick.emit();
     }
   }
 }

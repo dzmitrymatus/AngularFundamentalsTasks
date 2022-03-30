@@ -71,7 +71,8 @@
               "browserTarget": "courses-app:build:production"
             },
             "development": {
-              "browserTarget": "courses-app:build:development"
+              "browserTarget": "courses-app:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
