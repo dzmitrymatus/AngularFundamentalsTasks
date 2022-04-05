@@ -1,1 +1,34 @@
-<p>registration works!</p>
+<div class="app-registration">
+    <div class="component-container">
+        <h1>Registration</h1>
+        <div class="form-container">   
+            <form [formGroup]="registrationForm" #regForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" formControlName="name">
+                    <div class="validation-error-container" *ngIf="name.errors && (regForm.submitted || name.touched)">
+                        <p *ngIf="name.errors['required']">Name is required</p>
+                        <p *ngIf="name.errors['minlength']">Name should not be less than {{name.errors['minlength'].requiredLength}} symbols</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" formControlName="email">
+                    <div class="validation-error-container" *ngIf="email.errors && (regForm.submitted || email.touched)">
+                        <p *ngIf="email.errors['required']">Email is required</p>
+                        <p *ngIf="email.errors['emailValidator']">Email is not correct</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" formControlName="password" appInputTypeToggler #toggler="inputTypeToggler" [type]='toggler.inputType'>
+                    <div class="validation-error-container" *ngIf="password.errors && (regForm.submitted || password.touched)">
+                        <p>Password is required</p>
+                    </div>
+                </div>
+                <app-button buttonType="submit" buttonText="Registration"></app-button>
+            </form>
+            <p>If you have an account you can <a [routerLink]="['/login']">Login</a></p>
+        </div>
+    </div>
+</div>

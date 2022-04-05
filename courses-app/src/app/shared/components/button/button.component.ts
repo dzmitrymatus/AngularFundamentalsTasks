@@ -9,10 +9,11 @@ import { ConfirmModalWindowComponent } from '../confirm-modal-window/confirm-mod
 })
 export class ButtonComponent implements OnInit {
   @Input() buttonText: string = "";
+  @Input() buttonType: string = "button";
   @Input() iconName: IconName | undefined = undefined;
   @Input() iconPrefix: IconPrefix = 'fas';
-  @Input() confirmWindow: ConfirmModalWindowComponent | undefined;
-  @Output() onClick = new EventEmitter<void>();;
+  @Input() confirmWindow: ConfirmModalWindowComponent | undefined = undefined;
+  @Output() onClick = new EventEmitter<void>();
 
   iconLookup:IconLookup| undefined = undefined;
 
@@ -22,17 +23,21 @@ export class ButtonComponent implements OnInit {
     if(this.iconName){
       this.iconLookup = {prefix: this.iconPrefix, iconName: this.iconName};
     }
+
+    if(this.confirmWindow){
+      this.confirmWindow.onClose.subscribe(x => 
+        {
+          if(x) this.onClick.emit();
+          this.confirmWindow?.hide();
+        });
+    } 
    }
 
-   onButtonClick() {
-      if(this.confirmWindow !== undefined){
-        this.confirmWindow.show();
-        this.confirmWindow.onClose.subscribe(x => 
-          {
-            if(x === true) this.onClick.emit();
-            this.confirmWindow?.hide();
-          });
-      }
-   }
-
+  onButtonClick() {
+    if(this.confirmWindow) {
+      this.confirmWindow.show();    
+    } else {
+      this.onClick.emit();
+    }
+  }
 }

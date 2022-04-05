@@ -1,1 +1,8 @@
-<p>search works!</p>
+<div class="search">
+    <div class="form-container">
+        <form #formModel="ngForm" (ngSubmit)="onSubmit()">
+            <input name="searchValue" [(ngModel)]="searchValue">
+            <app-button buttonType="submit" buttonText="Search"></app-button>
+        </form> 
+    </div>
+</div>

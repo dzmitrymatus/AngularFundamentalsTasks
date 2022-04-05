@@ -7,12 +7,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnInit {
-  @Input() courses: CourseCardModel[] = [];
-  @Input() editable: boolean = false;
+  @Input() courses: CourseCardModel[] | null = [];
+  @Input() editable: boolean | null = false;
 
-  @Output() onShow = new EventEmitter<number>();
-  @Output() onEdit = new EventEmitter<number>();
-  @Output() onRemove = new EventEmitter<number>();
+  @Output() onShow = new EventEmitter<string>();
+  @Output() onEdit = new EventEmitter<string>();
+  @Output() onRemove = new EventEmitter<string>();
 
   constructor() { }
   

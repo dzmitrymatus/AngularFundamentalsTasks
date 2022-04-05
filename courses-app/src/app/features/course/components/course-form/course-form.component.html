@@ -1,0 +1,68 @@
+<div class="course-form">
+    <form [formGroup]="courseForm" #courseFormRef="ngForm" (ngSubmit)="onSubmit()">
+        <div class="main-info">
+            <div class="input-container">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" formControlName="title">
+                <div class="validation-error-container" *ngIf="title.errors && (courseFormRef.submitted || title.touched)">
+                    <p *ngIf="title.errors['required']">Title is required</p>
+                </div>
+            </div>
+            <app-button [buttonText]="isCreatePage? 'Create course' : 'Edit course'" buttonType="submit"></app-button>
+            <div class="input-container">
+                <label for="description">Description</label>
+                <textarea id="description" rows="15" name="description" formControlName="description"></textarea>
+                <div class="validation-error-container" *ngIf="description.errors && (courseFormRef.submitted || description.touched)">
+                    <p *ngIf="description.errors['required']">Description is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="secondary-info">
+            <div class="author-container">
+                <div class="authors-add" formGroupName="newAuthor">
+                    <h2>Add authors</h2>
+                    <div class="input-container">
+                        <label for="authorName">Author name</label>
+                        <input type="text" id="authorName" name="authorName" formControlName="authorName">
+                        <div class="validation-error-container" *ngIf="newAuthorName.errors && newAuthorName.touched">
+                            <p *ngIf="newAuthorName.errors['latinLettersAndNumbersValidator']">New author should contain only latin letters and numbers</p>
+                        </div>
+                    </div>
+                    <app-button buttonText="Create author" (onClick)="onAddAuthor()"></app-button>
+                </div>
+            </div>
+
+            <div class="authors-list-container" formArrayName="authors">
+                <h2>Authors list</h2>
+                <div class="input-container">
+                    <div class="author-line" *ngFor="let author of authors.controls; let i=index">
+                        <input disabled [value]="author.value.name">
+                        <app-button buttonText="Delete author" (onClick)="onDeleteAuthor(i)"></app-button>
+                    </div>
+                    <div class="validation-error-container" *ngIf="authors.errors && courseFormRef.submitted">
+                        <p *ngIf="authors.errors['required']">Authors is required</p>
+                    </div>
+                </div>
+            </div>
+            <div class="duration-container">
+                <h2>Duration</h2>
+                    <div class="input-container">
+                        <label for="duration">Duration</label>
+                        <input #durationElement type="number" id="duration" name="duration" formControlName="duration">
+
+                        <ng-template
+                            appControlError
+                            [element]="durationElement"
+                            controlName="duration"
+                            let-error>
+                            <div class="validation-error-container">
+                                <p>{{ error | async }}</p>
+                            </div>
+                        </ng-template>
+                        <p>Duration: {{duration.value|duration}} hours</p>
+                    </div>
+            </div>
+        </div>
+
+    </form>
+</div>

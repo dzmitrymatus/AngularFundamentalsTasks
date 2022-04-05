@@ -1,3 +1,6 @@
+import { apiConfig } from "./api.config";
+
 export const environment = {
-  production: true
+  production: true,
+  apiConfig: apiConfig
 };
